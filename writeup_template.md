@@ -36,9 +36,9 @@ The goals / steps of this project are the following:
 
 
 
-###Writeup / README
+**Writeup / README**
 
-####0. Create a helper fn. to create rectangle boxes based on coordinates/bounding boxes passed-in.
+**0. Create a helper fn. to create rectangle boxes based on coordinates/bounding boxes passed-in.**
 
 A helper function do_draw_boxes() is there in 3rd code cell of IPython notebook [Vehicle_Detection.ipynb](Vehicle_Detection.ipynb),
 
@@ -49,9 +49,9 @@ Example:
 
 ![alt text][image1]
 
-###Histogram of Oriented Gradients (HOG)
+**Histogram of Oriented Gradients (HOG)**
 
-####1. Explain how (and identify where in your code) you extracted HOG features from the training images.
+1. Explain how (and identify where in your code) you extracted HOG features from the training images.**
 
 The fn. retrive_hog_features() in 9th code cell of IPython notebook [Vehicle_Detection.ipynb](Vehicle_Detection.ipynb), contains the code for extracting Histogram of Oriented features from an image. It uses the OpenCV function **hogDescriptor()**.
 
@@ -80,7 +80,7 @@ Example:
 
 ![alt text][image15]
 
-####2. Explain how you settled on your final choice of HOG parameters.
+2. Explain how you settled on your final choice of HOG parameters.
 
 I tested the performance of the HOG features from Lab, HSV, YUV, and LUV color spaces and found the **YUV** color space to have the best performance for identifying vehicles. Thus, I chose **YUV** space for feature extraction.
 
@@ -105,9 +105,9 @@ In order to train the classifier to be used to identify vehicles in images. The 
 As per above results, I chose the **Multi-layer Perceptron** to identify vehicles in images and in the video stream.
 - Between the **Logistic Regression Classifier** and  **Multi-layer Perceptron**, **Multi-layer Perceptron**, I chose MLP classifier due to the increase in prediction accuracy.
 
-###Sliding Window Search
+**Sliding Window Search**
 
-####1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
+1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
 The 21st code cell of IPython notebook [Vehicle_Detection.ipynb](Vehicle_Detection.ipynb) contains the sliding_window() fn.
 
@@ -130,21 +130,21 @@ Example:
 
 ![alt text][image7]
 
-####2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
+2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
 Explained above.
 
 ---
 
-### Video Implementation
+**Video Implementation**
 
-####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
+1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
 The input video is at Udacity's  [link](https://github.com/udacity/CarND-Vehicle-Detection/blob/master/project_video.mp4)
 
 Here's a [link to my video result](https://youtu.be/HZuQu8NQnHo)
 
 
-####2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
+2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
 
 - In order to track vehicles across frames in a video stream, I created a class boxes to store all of the bounding rectangles from each of the previous 12 frames in a list.
 - In each frame, I then combine the lists of bounding rectangles from current and previous frames, and then used the OpenCV function cv2.groupRectangles to combine overlapping rectangles in to consolidated bounding boxes.
@@ -152,7 +152,7 @@ Here's a [link to my video result](https://youtu.be/HZuQu8NQnHo)
 - The group rectangles function takes care of the problem of false positives because if any part of the image is classified as a vehicle in fewer than 10 out of 12 consecutive frames, it will be filtered out and will not be included in the final bounding rectangles which are annotated on to the output video.
 
 
-### Here are video's six frames, their corresponding heatmaps and annotataed image:
+**Here are video's six frames, their corresponding heatmaps and annotataed image:**
 
 ![alt text][image8]
 
@@ -169,9 +169,9 @@ Here's a [link to my video result](https://youtu.be/HZuQu8NQnHo)
 
 ---
 
-###Discussion
+**Discussion**
 
-####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
 * Most difficult part of this project was elimination of false positives for detected vehicle, as any wrong detection can wrongly influence the car to make driving decisions which are potentially hazardous.
 * Current code pipeline, is still falsely identifying some non-vehicle objects such as trees and traffic signs. To improve the performance, it will be necessary to train on bigger dataset and add more negative features based on the false positives which were identified in the video stream.
